@@ -1,0 +1,11 @@
+name: Cumulocity
+values:
+  - key: url
+    value: ''
+    enabled: true
+  - key: auth
+    value: ''
+    enabled: true
+  - key: tenant
+    value: ''
+    enabled: true

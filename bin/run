@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Run the Cumulocity API collection using credentials from the active go-c8y-cli session.
+#
+# Usage:
+#   set-session                      # pick a c8y session first (go-c8y-cli)
+#   bin/run                          # run the whole collection
+#   bin/run -i "Inventory"           # run one folder or request
+#   bin/run --env-var deviceId=123   # any other `postman collection run` flags
+#
+# Credentials never touch the repo: they are written to a private temp file
+# (mode 600) for the duration of the run and deleted afterwards.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+POSTMAN="${POSTMAN:-$(command -v postman || echo "$HOME/.local/bin/postman")}"
+COLLECTION="Cumulocity API"
+
+host="${C8Y_HOST:-${C8Y_BASEURL:-${C8Y_URL:-}}}"
+if [[ -z "$host" ]]; then
+  echo "No active go-c8y-cli session. Run 'set-session' first." >&2
+  exit 1
+fi
+host="${host%/}"
+[[ "$host" == http* ]] || host="https://$host"
+
+user="${C8Y_USER:-${C8Y_USERNAME:-}}"
+tenant="${C8Y_TENANT:-}"
+
+if [[ -n "${C8Y_TOKEN:-}" ]]; then
+  auth="Bearer $C8Y_TOKEN"
+elif [[ -n "${C8Y_PASSWORD:-}" && -n "$user" ]]; then
+  [[ -n "$tenant" && "$user" != */* ]] && user="$tenant/$user"
+  auth="Basic $(printf '%s:%s' "$user" "$C8Y_PASSWORD" | base64)"
+else
+  echo "The c8y session has no token or password. Run 'set-session' again." >&2
+  exit 1
+fi
+
+yaml_quote() { printf "'%s'" "${1//\'/\'\'}"; }
+
+umask 077
+env_file="$(mktemp -t c8y-postman-env).yaml"
+trap 'rm -f "$env_file" "${env_file%.yaml}"' EXIT
+
+cat > "$env_file" <<EOF
+name: c8y session
+values:
+  - key: url
+    value: $(yaml_quote "$host")
+    enabled: true
+  - key: auth
+    value: $(yaml_quote "$auth")
+    enabled: true
+  - key: tenant
+    value: $(yaml_quote "$tenant")
+    enabled: true
+EOF
+
+echo "Running '$COLLECTION' against $host as ${user:-token user}" >&2
+# --no-report-events keeps run results (which include request headers) out of Postman Cloud.
+"$POSTMAN" collection run "$COLLECTION" -e "$env_file" --no-report-events "$@"
