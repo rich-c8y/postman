@@ -1,6 +1,8 @@
 cloudResources:
   collections:
     ../Cumulocity API: 59150504-f8a48d83-f702-4014-8d03-a4024ca2a9a4
+  environments:
+    ../postman/environments/Cumulocity.environment.yaml: 59150504-61a78e44-e3ec-4fc0-b8b8-6a8566ddb01a
   globals:
     ../postman/globals/workspace.globals.yaml: 01dafbff-ffdc-463b-8e62-6d1b1dd6b546
 localResources:
