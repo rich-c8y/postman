@@ -1,0 +1,11 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Tenant Reference Guide](http://cumulocity.com/guides/reference/tenants/)"
+url: "{{url}}/tenant/options/{{category}}/{{key}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+body:
+  type: text
+  content: ""
+order: 8000

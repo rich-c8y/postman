@@ -1,0 +1,15 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Device Control Reference Guide](http://cumulocity.com/guides/reference/device-control/)"
+url: "{{url}}/devicecontrol/newDeviceRequests"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.newDeviceRequest+json;
+body:
+  type: text
+  content: |-
+    {
+      "id": "test_id"
+    }
+order: 1000

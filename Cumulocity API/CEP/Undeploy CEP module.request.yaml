@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/cep/modules/{{id}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "status": "NOT_DEPLOYED"    
+    }
+order: 9000

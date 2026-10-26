@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{url}}/cep/modules/{{id}}"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+  Accept: text/plain
+body:
+  type: formdata
+  content: []
+order: 3000

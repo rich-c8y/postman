@@ -1,0 +1,19 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Device Control Reference Guide](http://cumulocity.com/guides/reference/device-control/)"
+url: "{{url}}/devicecontrol/operations/"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.operation+json;
+body:
+  type: text
+  content: |-
+    {
+      "deviceId" : "10200",
+      "c8y_Command": {
+          "text": "myCommand"
+      },
+      "description": "Shell command"
+    }
+order: 6000

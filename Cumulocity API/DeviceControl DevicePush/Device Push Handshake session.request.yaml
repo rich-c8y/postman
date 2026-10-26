@@ -1,0 +1,19 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Real-time Notification Reference Guide](http://cumulocity.com/guides/reference/real-time-notifications/)"
+url: "{{url}}/notification/operations"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    [
+    	{
+        	"version":"1.0",
+            "minimumVersion":"0.9",
+            "channel":"/meta/handshake",
+            "supportedConnectionTypes":["long-polling"]
+        }
+    ]
+order: 1000

@@ -1,0 +1,17 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Tenant Reference Guide](http://cumulocity.com/guides/reference/tenants/)"
+url: "{{url}}/tenant/options"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+        "category": "mycategory",
+        "key": "mykey",
+        "value": "myvalue"
+    }
+order: 6000

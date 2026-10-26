@@ -1,0 +1,94 @@
+$kind: http-request
+name: "Example: Monitor if device handles operations"
+url: "{{url}}/cep/modules"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: text/plain
+body:
+  type: text
+  content: |-
+    module OPERATION_MONITORING;
+
+    create constant variable int operation_timeout_in_seconds = 120;
+
+    create constant variable string opAlarmSeverity = "CRITICAL";
+    create constant variable string opAlarmText = "Operation with id=#{id.value} hasn't been finished!";
+    create constant variable string opAlarmType = "c8y_OperationNotFinished";
+
+    create schema OperationNotFinished (
+    	operation com.cumulocity.model.operation.Operation
+    );
+
+    create schema OperationFinished (
+    	operation com.cumulocity.model.operation.Operation,
+    	alarm Alarm
+    );
+
+    @Name("create_alarm_from_not_finished_operation")
+    insert into CreateAlarm
+    select 
+        operation.deviceId as source,
+        "ACTIVE" as status,
+        opAlarmSeverity as severity,
+        opAlarmType as type,
+        current_timestamp().toDate() as time,
+        replaceAllPlaceholders(opAlarmText, operation) as text,
+        {
+        	"operationId", operation.id.value
+        } as fragments
+    from OperationNotFinished;
+
+    insert into AlarmCreated
+    select
+        new Alarm(new GId(), opAlarmType, current_timestamp().toDate(), replaceAllPlaceholders(opAlarmText, operation), a.operation.deviceId, CumulocityAlarmStatuses.ACTIVE, CumulocitySeverities.CRITICAL) as alarm
+    from OperationNotFinished a;
+
+    @Name("set operation to failed")
+    insert into UpdateOperation
+    select
+       operation.id as id,
+       OperationStatus.FAILED as status,
+       {
+          "failureReason","Device did not handle operation in time"
+       } as fragments
+    from OperationNotFinished;
+
+    @Name("handle_not_finished_operation")
+    insert into OperationNotFinished  
+    select 
+        prevOp.operation as operation
+    from pattern [
+        every prevOp = OperationCreated 
+        	-> (timer:interval(operation_timeout_in_seconds second) 
+        	and not OperationUpdated(
+        		operation.id.value = prevOp.operation.id.value
+        		and (operation.status in (OperationStatus.SUCCESSFUL, OperationStatus.FAILED))
+        	))
+    ];
+
+    create schema NewMessageFromDevice (
+       alarm Alarm
+    );
+
+    insert into NewMessageFromDevice
+    select    findFirstAlarmBySourceAndStatusAndType(op.operation.deviceId.value,"ACTIVE",opAlarmType) as alarm
+    from OperationUpdated op
+    where op.operation.status = OperationStatus.SUCCESSFUL;
+
+    insert into NewMessageFromDevice
+    select    findFirstAlarmBySourceAndStatusAndType(m.measurement.source.value,"ACTIVE",opAlarmType) as alarm
+    from MeasurementCreated m;
+
+    insert into NewMessageFromDevice
+    select    findFirstAlarmBySourceAndStatusAndType(m.event.source.value,"ACTIVE",opAlarmType) as alarm
+    from EventCreated m;
+
+    @Name("clear_alarm_from_not_finished_operation")
+    insert into UpdateAlarm
+    select
+       input.alarm.id as id,
+       CumulocityAlarmStatuses.CLEARED as status
+    from NewMessageFromDevice input
+    where input.alarm is not null;
+order: 6000

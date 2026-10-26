@@ -1,0 +1,17 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects/{{deviceId}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"c8y_Configuration": {
+            "config": "myConfiguration"
+          }
+    }
+order: 15000

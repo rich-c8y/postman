@@ -1,0 +1,19 @@
+$kind: http-request
+name: "Example: SendSms On Alarm"
+url: "{{url}}/cep/modules"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: text/plain
+body:
+  type: text
+  content: |-
+    module SMSTESTSINGLE; 
+
+    insert into SendSms 
+    select 
+      "+49123456789" as receiver, 
+      "Hello World" as text 
+    from AlarmCreated a 
+    where a.type = "smsSingleTestAlarm";
+order: 4000

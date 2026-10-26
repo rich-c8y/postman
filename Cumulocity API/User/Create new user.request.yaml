@@ -1,0 +1,18 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [User Reference Guide](http://cumulocity.com/guides/reference/users/)"
+url: "{{url}}/user/{{tenant}}/users"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/vnd.com.nsn.cumulocity.user+json
+body:
+  type: text
+  content: |-
+    {
+    	"enabled":true,
+        "userName":"yourUserName",
+        "firstName":"yourFirstName",
+        "lastName":"yourLastName",
+        "password":"yourPassword"
+    }
+order: 4000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Measurement Reference Guide](http://cumulocity.com/guides/reference/measurements/)"
+url: "{{url}}/measurement/measurements"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.measurement+json
+body:
+  type: text
+  content: |-
+    {
+    	"c8y_SignalStrength": {
+        	"rssi": { 
+            	"value": -80,
+                "unit": "db" }
+            },
+        "time":"2013-06-22T17:03:14.000+02:00", 
+        "source": {
+        	"id":"10200" }, 
+        "type": "c8y_SignalMeasurement"
+    }
+order: 6000

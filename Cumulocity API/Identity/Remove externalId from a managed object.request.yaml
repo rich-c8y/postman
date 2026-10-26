@@ -1,0 +1,10 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Identity Reference Guide](http://cumulocity.com/guides/reference/identity/)"
+url: "{{url}}//identity/externalIds/{{type}}/{{externalId}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: text
+  content: ""
+order: 4000

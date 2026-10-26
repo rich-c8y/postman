@@ -1,0 +1,14 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Measurement Reference Guide](http://cumulocity.com/guides/reference/measurements/)"
+url: "{{url}}/measurement/measurements/series?source={{deviceId}}&dateFrom={{dateFrom}}&dateTo={{dateTo}}"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+queryParams:
+  source: "{{deviceId}}"
+  dateFrom: "{{dateFrom}}"
+  dateTo: "{{dateTo}}"
+body:
+  type: formdata
+  content: []
+order: 4000

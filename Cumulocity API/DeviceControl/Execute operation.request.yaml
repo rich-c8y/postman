@@ -1,0 +1,15 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Device Control Reference Guide](http://cumulocity.com/guides/reference/device-control/)"
+url: "{{url}}/devicecontrol/operations/{{operationId}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.operation+json
+body:
+  type: text
+  content: |-
+    {
+    	"status": "EXECUTING"
+    }
+order: 7000

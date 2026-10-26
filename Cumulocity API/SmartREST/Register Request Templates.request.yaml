@@ -1,0 +1,37 @@
+$kind: http-request
+description: |-
+  #### For a detailed description of the API please check out our [SmartREST Reference Guide](http://cumulocity.com/guides/reference/smartrest/)
+
+  You have to register all templates (request and response) in one single request.
+
+  For a better overview this example contains only request templates.
+
+  ###### Syntax:
+  10,{unique id},{request method},{uri},{content type},{accept},{placeholder},{parameter type},{template string}
+
+
+  * unique id: message identifier inside die SmartREST template
+  * request method: HTTP method to use for the request
+  * uri: the uri to the Cumulocity ressource
+  * content type: HTTP Content-Type header
+  * accept: HTTP Accept header
+  * placeholder: string that will be replaced in the template string with the values of a SmartREST request
+  * parameter type: optional list to set data type of parameters for validation in SmartREST
+  * template string: request body including placeholders that will be send by SmartREST
+url: "{{url}}/s/"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  X-Id: "{{my_xid}}"
+body:
+  type: text
+  content: |-
+    10,100,POST,/alarm/alarms,application/vnd.com.nsn.cumulocity.alarm+json,application/vnd.com.nsn.cumulocity.alarm+json,&&,UNSIGNED NOW,"{""source"":{""id"":""&&""},""type"":""c8y_MyAlarmFromSmartREST"",""text"":""This alarm was created by using SmartREST"",""severity"":""MAJOR"",""status"":""ACTIVE"",""time"":""&&""}"
+    10,200,POST,/measurement/measurements,application/vnd.com.nsn.cumulocity.measurement+json,application/vnd.com.nsn.cumulocity.measurement+json,&&,UNSIGNED UNSIGNED NOW UNSIGNED,"{""c8y_SmartMeasurement"":{""temp1"":{""value"":&&,""unit"":""C""},""temp2"":{""value"":&&,""unit"":""F""}},""time"":""&&"",""source"":{""id"":""&&""},""type"":""c8y_SmartMeasurement""}"
+    10,300,PUT,/inventory/managedObjects/&&,application/vnd.com.nsn.cumulocity.managedObject+json,,&&,,"{""c8y_Hardware"":{""model"":""&&"",""revision"":""&&""}}"
+    10,301,PUT,/alarm/alarms/&&,application/vnd.com.nsn.cumulocity.alarm+json,,&&,,"{""status"":""CLEARED""}"
+    10,302,PUT,/devicecontrol/operations/&&,application/vnd.com.nsn.cumulocity.operation+json,,&&,,"{""status"":""SUCCESSFUL""}"
+    10,600,GET,/identity/externalIds/c8y_Serial/&&,,,&&,,
+    10,601,GET,/devicecontrol/operations?deviceId=##&status=PENDING,,,##,,
+    10,602,GET,/inventory/managedObjects/&&,,,&&,,
+order: 1000

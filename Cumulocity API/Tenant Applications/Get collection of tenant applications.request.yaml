@@ -1,0 +1,18 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Tenant Reference Guide](http://cumulocity.com/guides/reference/tenants/)"
+url: "{{url}}/tenant/tenants/{{tenantId}}/applications"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: text
+  content: "{\r
+
+    \  \"application\": {\r
+
+    \    \"self\": \"{{url to application}}\"\r
+
+    \  }\r
+
+    }"
+order: 1000

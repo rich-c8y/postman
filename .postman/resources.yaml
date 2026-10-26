@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: c1fb708e-7fa8-4986-8c04-0dea6d0b50e1
+
+localResources:
+  collections:
+    - ../Cumulocity API
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../Cumulocity API: 8c023c63-3157-25bc-72d2-6f740e9fa98d

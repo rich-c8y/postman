@@ -1,0 +1,18 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"name": "testMeasurementDevice", 
+        "c8y_IsDevice": {}, 
+        "c8y_SupportedMeasurements": [
+        	"c8y_TemperatureMeasurement"]
+    }
+order: 6000

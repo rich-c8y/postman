@@ -1,0 +1,30 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects/{{deviceId}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"c8y_Mobile": {
+            "ecn0": "5.5",
+            "mcc": "262",
+            "msisdn": "",
+            "currentOperator": "o2 - de",
+            "rcsp": "77",
+            "imei": "xxxx",
+            "iccid": "xxx",
+            "lac": "7B86",
+            "currentBand": "WCDMA2100",
+            "cellId": "21132502",
+            "connType": "3g",
+            "mnc": "7",
+            "rssi": "-77",
+            "imsi": "xxx"
+          }
+    }
+order: 14000

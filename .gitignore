@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Local-only secrets: never commit real credentials.
+# Keep real values in Postman vault / current values, or in *.local.* files.
+*.local.yaml
+*.local.json
+.env

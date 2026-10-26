@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{url}}/inventory"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: formdata
+  content: []
+order: 7000

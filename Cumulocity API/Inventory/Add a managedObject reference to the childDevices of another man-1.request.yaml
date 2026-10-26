@@ -1,0 +1,15 @@
+$kind: http-request
+name: Add a managedObject reference to the childDevices of another managedObject as childAsset
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects/{{deviceId}}/childAssets"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "managedObject": {"id":"10200"}
+    }
+order: 9000

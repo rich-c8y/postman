@@ -1,0 +1,15 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Tenant Reference Guide](http://cumulocity.com/guides/reference/tenants/)"
+url: "{{url}}/tenant/tenants"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+       "contactPhone" : "0123-4567829"
+     }
+order: 7000

@@ -1,0 +1,10 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [User Reference Guide](http://cumulocity.com/guides/reference/users/)"
+url: "{{url}}/user/{{tenant}}/users/{{yourUserName}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: text
+  content: ""
+order: 6000

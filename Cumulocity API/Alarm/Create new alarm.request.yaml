@@ -1,0 +1,21 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Alarm Reference Guide](http://cumulocity.com/guides/reference/alarms/)"
+url: "{{url}}/alarm/alarms"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/vnd.com.nsn.cumulocity.alarm+json
+  Accept: application/vnd.com.nsn.cumulocity.alarm+json
+body:
+  type: text
+  content: |-
+    {
+    	"source": {
+        	"id": "10200" },
+        "type": "TestAlarm",
+        "text": "I am an alarm",
+        "severity": "MINOR",
+        "status": "ACTIVE",
+        "time": "2014-03-03T12:03:27.845Z"
+    }
+order: 2000

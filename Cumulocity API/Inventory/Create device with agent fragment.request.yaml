@@ -1,0 +1,17 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+    	"name": "testAgent", 
+        "c8y_IsDevice": {},
+        "com_cumulocity_model_Agent": {}
+    }
+order: 7000

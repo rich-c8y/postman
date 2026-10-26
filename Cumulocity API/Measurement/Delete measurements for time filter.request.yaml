@@ -1,0 +1,13 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Measurement Reference Guide](http://cumulocity.com/guides/reference/measurements/)"
+url: "{{url}}/measurement/measurements?dateTo={{dateTo}}&dateFrom={{dateFrom}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+queryParams:
+  dateTo: "{{dateTo}}"
+  dateFrom: "{{dateFrom}}"
+body:
+  type: text
+  content: ""
+order: 9000

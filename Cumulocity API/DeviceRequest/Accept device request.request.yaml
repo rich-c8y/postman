@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/devicecontrol/newDeviceRequests/{{id}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "status": "ACCEPTED"
+    }
+order: 2000

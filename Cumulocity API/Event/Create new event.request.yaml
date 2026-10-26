@@ -1,0 +1,19 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Event Reference Guide](http://cumulocity.com/guides/reference/events/)"
+url: "{{url}}/event/events"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.event+json
+body:
+  type: text
+  content: |-
+    {
+    	"source": {
+        	"id":"10200" },
+        "type": "TestEvent",
+        "text": "sensor was triggered",
+        "time": "2014-03-03T12:03:27.845Z"
+    }
+order: 2000

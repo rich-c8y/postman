@@ -1,0 +1,15 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Measurement Reference Guide](http://cumulocity.com/guides/reference/measurements/)"
+url: "{{url}}/alarm/alarms/{{alarmId}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/vnd.com.nsn.cumulocity.alarm+json
+  Accept: application/vnd.com.nsn.cumulocity.alarm+json
+body:
+  type: text
+  content: |-
+    {
+        "status": "ACKNOWLEDGED"
+    }
+order: 3000

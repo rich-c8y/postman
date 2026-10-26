@@ -1,0 +1,16 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Identity Reference Guide](http://cumulocity.com/guides/reference/identity/)"
+url: "{{url}}/identity/globalIds/{{deviceId}}/externalIds"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/vnd.com.nsn.cumulocity.externalId+json
+  Accept: application/vnd.com.nsn.cumulocity.externalId+json
+body:
+  type: text
+  content: |-
+    {
+    	"externalId": "useThisTestId",
+        "type": "testExternalId"
+    }
+order: 3000

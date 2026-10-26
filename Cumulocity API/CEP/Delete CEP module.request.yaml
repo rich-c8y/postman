@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{url}}/cep/modules/{{id}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: formdata
+  content: []
+order: 10000

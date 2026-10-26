@@ -1,0 +1,24 @@
+$kind: http-request
+name: "Example: MeasurementSimulator"
+url: "{{url}}/cep/modules"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: text/plain
+body:
+  type: text
+  content: |-
+    module MeasurementSimulator;
+    create variable Random random = new Random();
+
+    insert into CreateMeasurement
+    select
+      current_timestamp().toDate() as time,
+      "c8y_TemperatureMeasurement" as type,
+      "13809" as source,
+      {
+        "c8y_TemperatureMeasurement.T.value", random.nextInt(30),
+        "c8y_TemperatureMeasurement.T.unit", "C"
+      } as fragments
+    from pattern[every timer:interval(1 minutes)];
+order: 7000

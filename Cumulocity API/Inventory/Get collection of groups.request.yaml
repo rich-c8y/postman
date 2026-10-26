@@ -1,0 +1,15 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects?fragmentType=c8y_IsDeviceGroup"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+queryParams:
+  fragmentType: c8y_IsDeviceGroup
+body:
+  type: formdata
+  content:
+    - type: text
+      key: file
+      value: module newmodule; insert into SendSms select     "4917634025784" as receiver,     "Alarm" as text from AlarmCreated m where m.type = "c8y_testSmsAlarm";
+order: 5000

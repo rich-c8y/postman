@@ -1,0 +1,13 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Auditing Reference Guide](http://cumulocity.com/guides/reference/auditing/)"
+url: "{{url}}/audit/auditRecords?dateTo={{dateTo}}&dateFrom={{dateFrom}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+queryParams:
+  dateTo: "{{dateTo}}"
+  dateFrom: "{{dateFrom}}"
+body:
+  type: text
+  content: ""
+order: 3000

@@ -1,0 +1,10 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Alarm Reference Guide](http://cumulocity.com/guides/reference/alarms/)"
+url: "{{url}}/alarm/alarms"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: formdata
+  content: []
+order: 1000

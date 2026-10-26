@@ -1,0 +1,11 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Binaries Reference Guide](http://cumulocity.com/guides/reference/binaries/)"
+url: "{{url}}/inventory/binaries/{{binaryId}}"
+method: PUT
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: "{{file_mime_type}}"
+body:
+  type: text
+  content: ""
+order: 4000

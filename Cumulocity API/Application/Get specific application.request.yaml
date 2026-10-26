@@ -1,0 +1,19 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Application Reference Guide](http://cumulocity.com/guides/reference/applications/)"
+url: "{{url}}/application/applications/{{applicationId}}"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: formdata
+  content:
+    - type: text
+      key: object
+      value: '{"name":"HelloWorld","type":"text/plain"}'
+    - type: text
+      key: filesize
+      value: "12"
+    - type: file
+      key: file
+      src: ""
+order: 3000

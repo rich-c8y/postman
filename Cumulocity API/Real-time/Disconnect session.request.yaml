@@ -1,0 +1,17 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Real-time Notification Reference Guide](http://cumulocity.com/guides/reference/real-time-notifications/)"
+url: "{{url}}/notification/realtime"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    [
+    	{
+        	"channel":"/meta/disconnect",
+            "clientId":"{{clientId}}"
+        }
+    ]
+order: 5000

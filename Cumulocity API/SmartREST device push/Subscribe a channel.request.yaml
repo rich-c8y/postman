@@ -1,0 +1,11 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [SmartREST Reference Guide](http://cumulocity.com/guides/reference/smartrest/)"
+url: "{{url}}/notification/operations"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  X-Id: "{{my_xid}}"
+body:
+  type: text
+  content: 81,{{clientId}},/{{agentId}}
+order: 2000

@@ -1,0 +1,6 @@
+$kind: collection
+description: |-
+  Environment variables for this Postman Collection:
+
+  url = the IP adress/domain of your cumulocity server
+  auth = your base64 encoded tenant/username:password or username:password

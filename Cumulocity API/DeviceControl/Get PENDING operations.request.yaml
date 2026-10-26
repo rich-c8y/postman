@@ -1,0 +1,12 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Device Control Reference Guide](http://cumulocity.com/guides/reference/device-control/)"
+url: "{{url}}/devicecontrol/operations?status=PENDING"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+queryParams:
+  status: PENDING
+body:
+  type: formdata
+  content: []
+order: 2000

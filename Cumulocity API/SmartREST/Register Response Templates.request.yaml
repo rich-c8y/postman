@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  #### For a detailed description of the API please check out our [SmartREST Reference Guide](http://cumulocity.com/guides/reference/smartrest/)
+
+  You have to register all templates (request and response) in one single request.
+
+  For a better overview this example contains only response templates.
+
+  ###### Syntax:
+  11,{unique id},{base},{condition},{response value},{response value}, ...
+
+
+  * unique id: message identifier inside die SmartREST template
+  * base: the base object that should be check for objects (e.g. $.operations in an operation collection)
+  * condition: only objects with this fragments will be returned
+  * response value: value to return from the object
+url: "{{url}}/s/"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  X-Id: "{{my_xid}}"
+body:
+  type: text
+  content: |-
+    11,500,,$.c8y_IsDevice,$.id,$.c8y_Configuration.config
+    11,501,,$.externalId,$.managedObject.id
+    11,502,,$.severity,$.id
+    11,503,$.operations,$.c8y_Configuration,$.id,$.c8y_Configuration.config
+order: 2000

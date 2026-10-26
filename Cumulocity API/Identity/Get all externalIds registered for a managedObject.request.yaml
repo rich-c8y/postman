@@ -1,0 +1,10 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Identity Reference Guide](http://cumulocity.com/guides/reference/identity/)"
+url: "{{url}}/identity/globalIds/{{deviceId}}/externalIds"
+method: GET
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: formdata
+  content: []
+order: 1000

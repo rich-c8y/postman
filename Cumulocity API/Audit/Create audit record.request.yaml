@@ -1,0 +1,21 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Auditing Reference Guide](http://cumulocity.com/guides/reference/auditing/)"
+url: "{{url}}/audit/auditRecords"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: text
+  content: |-
+    {
+      "type" : "com_cumulocity_audit_LoginFailure",
+      "time" : "2011-09-06T12:03:27.845Z",
+      "text" : "Login failed after 3 attempts.",
+      "user" : "Spock",
+      "application" : "Omniscape",
+      "activity" : "login",
+      "severity" : "warning"
+    }
+order: 2000

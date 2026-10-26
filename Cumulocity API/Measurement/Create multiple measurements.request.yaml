@@ -1,0 +1,38 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Measurement Reference Guide](http://cumulocity.com/guides/reference/measurements/)"
+url: "{{url}}/measurement/measurements"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.measurementCollection+json
+body:
+  type: text
+  content: |-
+    {
+        "measurements": [
+            {
+            	"c8y_SpeedMeasurement": {
+                	"speed": { 
+                    	"value": 25,
+                        "unit": "km/h" }
+                    },
+                "time":"2013-06-22T17:03:14.000+02:00", 
+                "source": {
+                	"id":"10200" }, 
+                "type": "c8y_SpeedMeasurement"
+            },
+            {
+            	"c8y_SpeedMeasurement": {
+                	"speed": { 
+                    	"value": 22,
+                        "unit": "km/h" }
+                    },
+                "time":"2013-06-22T17:05:14.000+02:00", 
+                "source": {
+                	"id":"10200" }, 
+                "type": "c8y_SpeedMeasurement"
+            }
+        ]
+    }
+order: 8000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Event Reference Guide](http://cumulocity.com/guides/reference/events/)"
+url: "{{url}}/event/events"
+method: POST
+headers:
+  Authorization: "{{auth}}"
+  Content-Type: application/json
+  Accept: application/vnd.com.nsn.cumulocity.event+json
+body:
+  type: text
+  content: |-
+    {
+    	"c8y_Position": {
+        	"alt": 67,
+          	"lng": 6.95173,
+          	"lat": 51.151977 },
+    	"time":"2013-06-22T17:03:14.000+02:00",
+        "source": {
+        	"id":"10300" }, 
+        "type": "c8y_LocationUpdate",
+        "text": "LocUpdate"
+    }
+order: 3000

@@ -1,0 +1,10 @@
+$kind: http-request
+description: "#### For a detailed description of the API please check out our [Inventory Reference Guide](http://cumulocity.com/guides/reference/inventory/)"
+url: "{{url}}/inventory/managedObjects/{{deviceId}}"
+method: DELETE
+headers:
+  Authorization: "{{auth}}"
+body:
+  type: text
+  content: ""
+order: 16000
