@@ -61,7 +61,16 @@ bin/run -i "Get collection of alarms"
 bin/run --env-var deviceId=12345   # any other `postman collection run` flags
 ```
 
-`bin/run` reads the active session (`C8Y_HOST`, `C8Y_TENANT`, `C8Y_TOKEN` or `C8Y_USER`/`C8Y_PASSWORD`). It writes them to a temporary file only you can read, deletes the file when the run ends, and passes `--no-report-events` so run results (which include request headers) are not uploaded to Postman Cloud.
+Or name a session file instead of activating one, e.g. Claude's read-only session (its passphrase comes from `C8Y_PASSPHRASE`, otherwise c8y asks):
+
+```bash
+C8Y_PASSPHRASE="$(security find-generic-password -s c8y-claude -w)" \
+  bin/run --session ~/.cumulocity-claude/claudeai.json -i "Get collection of alarms"
+```
+
+c8y's read-only `prod` mode does **not** apply to Postman: these requests can change anything the session's Cumulocity user is allowed to, so give limited users limited roles.
+
+`bin/run` reads the session (`C8Y_HOST`, `C8Y_TENANT`, and `C8Y_HEADER_AUTHORIZATION`, `C8Y_TOKEN` or `C8Y_USER`/`C8Y_PASSWORD`). It writes them to a temporary file only you can read, deletes the file when the run ends, and passes `--no-report-events` so run results (which include request headers) are not uploaded to Postman Cloud.
 
 ### In the Postman app
 

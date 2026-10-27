@@ -7,17 +7,37 @@
 #   bin/run -i "Inventory"           # run one folder or request
 #   bin/run --env-var deviceId=123   # any other `postman collection run` flags
 #
+#   bin/run --session ~/.cumulocity-claude/claudeai.json -i "Get current tenant"
+#                                    # log in with a c8y session file instead of
+#                                    # the active one (C8Y_PASSPHRASE or a prompt
+#                                    # unlocks it)
+#
 # Credentials never touch the repo: they are written to a private temp file
 # (mode 600) for the duration of the run and deleted afterwards.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 POSTMAN="${POSTMAN:-$(command -v postman || echo "$HOME/.local/bin/postman")}"
-COLLECTION="Cumulocity API"
+C8Y="${C8Y:-$(command -v c8y || echo /opt/homebrew/bin/c8y)}"
+COLLECTION="${COLLECTION:-Cumulocity API}"
+
+if [[ "${1:-}" == "--session" ]]; then
+  session_file="${2:?--session needs a c8y session file}"
+  shift 2
+  export C8Y_SESSION_HOME="${C8Y_SESSION_HOME:-$(dirname "$session_file")}"
+  # Without a terminal, c8y waits for piped input, so give it none.
+  if [[ -t 0 ]]; then
+    login_env="$("$C8Y" sessions login --session "$session_file" --shell bash)"
+  else
+    login_env="$("$C8Y" sessions login --session "$session_file" --shell bash < /dev/null)"
+  fi
+  eval "$login_env"
+  unset login_env
+fi
 
 host="${C8Y_HOST:-${C8Y_BASEURL:-${C8Y_URL:-}}}"
 if [[ -z "$host" ]]; then
-  echo "No active go-c8y-cli session. Run 'set-session' first." >&2
+  echo "No active go-c8y-cli session. Run 'set-session' first, or pass --session <file>." >&2
   exit 1
 fi
 host="${host%/}"
@@ -26,7 +46,9 @@ host="${host%/}"
 user="${C8Y_USER:-${C8Y_USERNAME:-}}"
 tenant="${C8Y_TENANT:-}"
 
-if [[ -n "${C8Y_TOKEN:-}" ]]; then
+if [[ -n "${C8Y_HEADER_AUTHORIZATION:-}" ]]; then
+  auth="$C8Y_HEADER_AUTHORIZATION"
+elif [[ -n "${C8Y_TOKEN:-}" ]]; then
   auth="Bearer $C8Y_TOKEN"
 elif [[ -n "${C8Y_PASSWORD:-}" && -n "$user" ]]; then
   [[ -n "$tenant" && "$user" != */* ]] && user="$tenant/$user"
@@ -57,5 +79,10 @@ values:
 EOF
 
 echo "Running '$COLLECTION' against $host as ${user:-token user}" >&2
+if [[ "${C8Y_MODE:-}" == "prod" ]]; then
+  # c8y's read-only mode only guards c8y commands; Postman sends whatever the request says.
+  echo "Note: this session is c8y 'prod' (read-only) mode, but Postman doesn't enforce it." \
+       "Only the user's Cumulocity roles limit what these requests can change." >&2
+fi
 # --no-report-events keeps run results (which include request headers) out of Postman Cloud.
 "$POSTMAN" collection run "$COLLECTION" -e "$env_file" --no-report-events "$@"
