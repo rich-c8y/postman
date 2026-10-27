@@ -61,7 +61,7 @@ bin/run -i "Get collection of alarms"
 bin/run --env-var deviceId=12345   # any other `postman collection run` flags
 ```
 
-Or name a session file instead of activating one, e.g. Claude's read-only session (its passphrase comes from `C8Y_PASSPHRASE`, otherwise c8y asks):
+Or name a session file instead of activating one, e.g. Claude's own session (its passphrase comes from `C8Y_PASSPHRASE`, otherwise c8y asks):
 
 ```bash
 C8Y_PASSPHRASE="$(security find-generic-password -s c8y-claude -w)" \
